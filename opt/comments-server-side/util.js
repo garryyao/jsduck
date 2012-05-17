@@ -294,7 +294,48 @@ exports.sendEmailUpdates = function(comment) {
             console.log("No emails to send");
         }
     });
+
+    findImplicitSubscribers(comment);
 };
+
+function findImplicitSubscribers(comment) {
+    // grep comment for occurances of "@username" pattern.
+    // Turn each one of them into a regex to check against actual user names
+    var at_patterns = (comment.content.match(/@\S*?\b/) || []).map(function(ref) {
+        return new RegExp("^" + ref.replace(/^@/, ""), "i");
+    });
+
+    // find all comments in this thread posted by others
+    var query = {
+        sdk: comment.sdk,
+        version: comment.version,
+        target: comment.target,
+        userId: {$ne: comment.userId}
+    };
+    Comment.find(query, function(err, allComments) {
+        // Gather all authors that were referenced with @username in the comment.
+        var authors = {};
+        // go through all comments in this thread
+        allComments.forEach(function(c) {
+            // skip if the author is already listed.
+            if (authors[c.userId]) {
+                return;
+            }
+            // try to match author name with one of the
+            at_patterns.forEach(function(re) {
+                if (re.test(c.author)) {
+                    authors[c.userId] = c.author;
+                }
+            });
+        });
+
+        // print out the users we should send emails to
+        for (var i in authors) {
+            console.log(authors[i]);
+        }
+    });
+}
+
 
 /**
  * Retrieves comment counts for each target.
