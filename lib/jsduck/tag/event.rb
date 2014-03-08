@@ -30,7 +30,7 @@ module JsDuck::Tag
     end
 
     def to_html(event, cls)
-      member_link(event) + member_params(event[:params])
+      member_link(event)
     end
   end
 end
