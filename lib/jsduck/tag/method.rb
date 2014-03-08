@@ -46,7 +46,7 @@ module JsDuck::Tag
     end
 
     def to_html(m, cls)
-      new_kw(m) + method_link(m, cls) + member_params(m[:params]) + return_value(m)
+      method_link(m, cls) + member_params(m[:params]) + return_value(m)
     end
 
     private
