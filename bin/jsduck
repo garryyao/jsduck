@@ -15,7 +15,7 @@
 # Copyright 2010 Rene Saarsoo.
 
 # For running when gem not installed
-$:.unshift File.dirname(File.dirname(__FILE__)) + "/lib"
+$:.unshift File.expand_path('../../lib', File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__)
 
 require 'jsduck/app'
 require 'jsduck/options/processor'
