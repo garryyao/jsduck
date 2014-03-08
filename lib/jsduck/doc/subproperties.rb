@@ -27,7 +27,7 @@ module JsDuck
       # logging warnings when bogus subproperty syntax is encountered.
       def nest(raw_items, pos)
         # First item can't be namespaced, if it is ignore the rest.
-        if raw_items[0] && raw_items[0][:name] =~ /\./
+        if raw_items[0] && raw_items[0][:name] =~ /[^.]\.[^.]/
           warn(raw_items[0][:name], pos)
           raw_items[0][:name].sub!(/\..*$/, '')
           return [raw_items[0]]
