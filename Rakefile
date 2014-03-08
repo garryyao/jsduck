@@ -190,7 +190,7 @@ class JsDuckRunner
 
   def run
     # Pass multiple arguments to system, so we'll take advantage of the built-in escaping
-    system(*["ruby", "bin/jsduck"].concat(@options))
+    system(*["ruby", "bin/jsduck-troopjs"].concat(@options))
   end
 end
 
@@ -281,7 +281,7 @@ end
 desc "Build JSDuck gem"
 task :gem => :sass do
   compress
-  system "gem build jsduck.gemspec"
+  system "gem build jsduck-troopjs.gemspec"
 end
 
 desc "Run JSDuck on Docs app itself"
