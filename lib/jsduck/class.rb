@@ -187,8 +187,8 @@ module JsDuck
 
     # Generates member :id from member hash
     def self.member_id(m)
-      # Sanitize $ in member names with something safer
-      name = m[:name].gsub(/\$/, 'S-')
+      # Sanitize $ and / in member names with something safer
+      name = m[:name].gsub(/\$/, 'S-').gsub(/\//,'-')
       "#{m[:static] ? 'static-' : ''}#{m[:tagname]}-#{name}"
     end
 
