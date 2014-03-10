@@ -13,8 +13,8 @@ module JsDuck
     #
     class Scanner
       def initialize
-        @ident_pattern = /[\w$-_\/]+/
-        @ident_chain_pattern = /[$\w-]+(?:(?:\.{3})|(\.[$\w-]+)*)/
+        @ident_pattern = /[$\w-\/]+/
+        @ident_chain_pattern = /[$\w-\/]+(\.[$\w-]+)*/
 
         @input = nil # set to StringScanner in subclass
         @position = {} # set in subclass
