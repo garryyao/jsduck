@@ -1,6 +1,7 @@
 Gem::Specification.new do |s|
   s.required_ruby_version = ">= 1.8"
   s.required_rubygems_version = ">= 1.3.5"
+  s.required_ruby_version = ">= 1.9.1"
 
   s.name = 'jsduck-troopjs'
   s.version = `./bin/jsduck-troopjs --version`.sub(/\AJSDuck ([\w.]+).*\z/m, "\\1")
