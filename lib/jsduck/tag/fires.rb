@@ -12,31 +12,47 @@ module JsDuck::Tag
 
     # @fires eventname
     def parse_doc(p, pos)
-      {:tagname => :fires, :events => ident_list(p)}
-    end
+      tag = {:tagname => :fires}
 
-    # matches <ident> <ident> ... until line end
-    def ident_list(p)
-      list = []
-      while ident = p.hw.ident
-        list << ident
+      # event name from other class
+      if p.look(/.+#/)
+        tag[:cls] = p.ident_chain
+        p.match(/#/)
+        if p.look(/static-/)
+          tag[:static] = true
+          p.match(/static-/)
+        end
+        if p.look(JsDuck::MemberRegistry.regex)
+          tag[:type] = p.match(/\w+/).to_sym
+          p.match(/-/)
+        end
+        tag[:member] = p.ident
+      # event name from own class
+      else
+        tag[:cls] = nil
+        tag[:type] = :event
+        tag[:member] = p.ident
       end
-      list
+
+      tag
     end
 
     def process_doc(h, tags, pos)
-      h[:fires] = tags.map {|t| t[:events] }.flatten
+      h[:fires] = tags.select {|t| t[:tagname] == :fires }
+      h
     end
 
     def format(m, formatter)
-      cls = formatter.relations[m[:owner]]
+      m[:fires] = m[:fires].map do |f|
+        member = f[:member];
+        owner = f[:cls] || m[:owner]
 
-      m[:fires] = m[:fires].map do |name|
-        if cls.find_members({:tagname => :event, :name => name}).length > 0
-          formatter.link(m[:owner], name, name, :event)
+        # Check event existence.
+        cls = formatter.relations[owner]
+        if cls.find_members({:tagname => :event, :name => member}).length > 0
+          formatter.link(owner, member, member, :event, m[:static])
         else
-          JsDuck::Logger.warn(:fires, "@fires references unknown event: #{name}", m[:files][0])
-          name
+          JsDuck::Logger.warn(:fires, "@fires unknown event: #{label}", m[:files][0])
         end
       end
     end
