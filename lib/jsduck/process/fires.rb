@@ -30,7 +30,7 @@ module JsDuck
 
       def detect_fires(cls, m)
         if m[:autodetected][:fires] && m[:method_calls] && !detected?(m)
-          m[:fires] = events_from_methods(cls, m[:method_calls]).concat(m[:fires] || []).sort.uniq
+          m[:fires] = events_from_methods(cls, m[:method_calls]).concat(m[:fires] || [])
           mark_detected(m)
         end
 
@@ -62,7 +62,7 @@ module JsDuck
           end
         end
 
-        events.sort.uniq
+        events.sort_by {|event| event[:member]}.uniq
       end
 
     end
