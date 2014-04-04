@@ -15,10 +15,12 @@ module JsDuck
           render_alternate_class_names(cls[:alternateClassNames]),
           render_tree(cls),
           render_dependencies(cls[:mixins], "Mixins"),
+          render_dependencies(cls[:implements], "Implements"),
           render_dependencies(cls[:parentMixins], "Inherited mixins"),
           render_dependencies(cls[:requires], "Requires"),
           render_dependencies(cls[:subclasses], "Subclasses"),
           render_dependencies(cls[:mixedInto], "Mixed into"),
+          render_dependencies(cls[:implementedBy], "Implemented By"),
           render_dependencies(cls[:uses], "Uses"),
           render_files(cls[:files])
         ]

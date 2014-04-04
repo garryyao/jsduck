@@ -86,10 +86,16 @@ module JsDuck
       deps(:mixins)
     end
 
+    # Returns all intefaces that this class implements.
+    def implements
+      deps(:implements).concat(parent_deps(:implements))
+    end
+
     # Returns an array of class instances this class directly depends on.
     # Possible types are:
     #
     # - :mixins
+    # - :implements
     # - :requires
     # - :uses
     #

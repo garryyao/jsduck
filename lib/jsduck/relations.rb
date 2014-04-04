@@ -30,9 +30,11 @@ module JsDuck
 
       @subs = {}
       @mixes = {}
+      @implements = {}
       @classes.each do |cls|
         reg_subclasses(cls)
         reg_mixed_into(cls)
+        reg_implemented(cls)
       end
     end
 
@@ -86,9 +88,24 @@ module JsDuck
       end
     end
 
+    def reg_implemented(cls)
+      cls.implements.each do |impl|
+        if @implements[impl[:name]]
+          @implements[impl[:name]] << cls
+        else
+          @implements[impl[:name]] = [cls]
+        end
+      end
+    end
+
     # Returns classes having particular mixin, empty array if none
     def mixed_into(cls)
       @mixes[cls[:name]] || []
+    end
+
+    # Returns classes having particular mixin, empty array if none
+    def implemented_by(cls)
+      @implements[cls[:name]] || []
     end
   end
 
