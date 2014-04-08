@@ -27,7 +27,7 @@ module JsDuck
         data[:alternateClassNames] = cls[:alternateClassNames].sort if cls[:alternateClassNames]
 
         data[:mixins] = cls.deps(:mixins).collect {|c| c[:name] }.sort
-        data[:implements] = cls.deps(:implements).collect {|c| c[:name] }.sort
+        data[:implements] = cls.implements.collect {|c| c[:name] }.sort
         data[:parentMixins] = cls.parent_deps(:mixins).collect {|c| c[:name] }.sort
         data[:requires] = cls.deps(:requires).collect {|c| c[:name] }.sort
         data[:uses] = cls.deps(:uses).collect {|c| c[:name] }.sort

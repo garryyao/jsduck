@@ -86,7 +86,7 @@ module JsDuck
       deps(:mixins)
     end
 
-    # Returns all intefaces that this class implements.
+    # Returns all interfaces that either this class or it's ancestors implement.
     def implements
       deps(:implements).concat(parent_deps(:implements))
     end
