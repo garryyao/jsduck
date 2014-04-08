@@ -166,18 +166,19 @@ module JsDuck
 
         else
           # @inheritdoc
-          parent_cls = @relations[m[:owner]].parent
-          mixins = @relations[m[:owner]].mixins
+          relationship = @relations[m[:owner]]
+          parent_cls = relationship.parent
+          mixins = relationship.mixins.concat(relationship.implements)
 
-          # Warn when no parent or mixins at all
+          # Warn when no parent or mixins/interfaces at all
           if !parent_cls && mixins.length == 0
             warn("parent class not found", m) unless autodetected?(m)
             return nil
           end
 
-          # First check for the member in all mixins, because members
-          # from mixins override those from parent class.  Looking first
-          # from mixins is probably a bit slower, but it's the correct
+          # First check for the member in all mixins then interfaces, because members
+          # from mixins/interfaces override those from parent class.  Looking first
+          # from mixins/interfaces is probably a bit slower, but it's the correct
           # order to do things.
           if mixins.length > 0
             parent = mixins.map {|mix| lookup_member(mix, m) }.compact.first
