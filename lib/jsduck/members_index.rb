@@ -65,6 +65,10 @@ module JsDuck
           merge!(@global_map_by_id, mix.members_index.global_by_id)
         end
 
+        @cls.implements.each do |int|
+          merge!(@global_map_by_id, int.members_index.global_by_id)
+        end
+
         # Exclude all non-inheritable static members
         @global_map_by_id.delete_if {|id, m| m[:static] && !m[:inheritable] }
 
