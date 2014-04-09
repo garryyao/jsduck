@@ -1,4 +1,5 @@
 *.gem
+.DS_Store
 template/extjs
 template/resources/css
 template/resources/sass/.sass-cache

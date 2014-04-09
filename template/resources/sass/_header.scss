@@ -119,7 +119,8 @@
     top: 6px;
     left: 4px;
     width: 18px;
-    height: 18px; }
+    height: 18px;
+    background-size: contain !important; }
 
   // Here also the auto-generated class icons apply
   @include icons;

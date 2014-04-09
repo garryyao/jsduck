@@ -23,7 +23,10 @@ module JsDuck
           class_icon_providers.each do |tag|
             css << <<-EOCSS
               #center-container h1.icon-#{tag.tagname} .class-source-link {
-                  background: url(class-icons/#{tag.tagname}-large.png) no-repeat 0 -5px; }
+                  background-image: url(class-icons/#{tag.tagname}.png);
+                  background-repeat: no-repeat;
+                  background-size: 42px 42px;
+                  background-position: 10px 0; }
               #treecontainer .x-grid-cell-inner .icon-#{tag.tagname} {
                   background: url(class-icons/#{tag.tagname}.png) no-repeat; }
               #search-dropdown .icon-#{tag.tagname} {
@@ -43,9 +46,7 @@ module JsDuck
 
           icons = {}
           class_icon_providers.each do |tag|
-            icons[tag.class_icon[:small]] = "#{dir}/#{tag.tagname}.png"
-            icons[tag.class_icon[:large]] = "#{dir}/#{tag.tagname}-large.png"
-            icons[tag.class_icon[:redirect]] = "#{dir}/#{tag.tagname}-redirect.png"
+            icons[tag.class_icon[:icon]] = "#{dir}/#{tag.tagname}.png"
           end
 
           icons.each_pair do |source, target|

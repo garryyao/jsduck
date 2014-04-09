@@ -6,9 +6,7 @@ module JsDuck::Tag
       @pattern = "class"
       @tagname = :class
       @class_icon = {
-        :small => File.dirname(__FILE__) + "/icons/class.png",
-        :large => File.dirname(__FILE__) + "/icons/class-large.png",
-        :redirect => File.dirname(__FILE__) + "/icons/class-redirect.png",
+        :icon => File.dirname(__FILE__) + "/icons/class.png",
         :priority => PRIORITY_CLASS,
       }
     end

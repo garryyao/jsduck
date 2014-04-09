@@ -5,9 +5,7 @@ module JsDuck::Tag
     def initialize
       @pattern = "abstract"
       @class_icon = {
-          :small => File.dirname(__FILE__) + "/icons/abstract.png",
-          :large => File.dirname(__FILE__) + "/icons/abstract-large.png",
-          :redirect => File.dirname(__FILE__) + "/icons/abstract-redirect.png",
+          :icon => File.dirname(__FILE__) + "/icons/abstract.png",
           :priority => PRIORITY_SINGLETON,
       }
       @signature = {:long => "abstract", :short => "ABS"}

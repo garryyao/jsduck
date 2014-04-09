@@ -20,7 +20,11 @@
     position: relative;
     @include transition(background-color, 0.15s, linear);
     // Here also the auto-generated class icons apply
-    @include icons; }
+    @include icons;
+  }
+  .x-tree-icon {
+    background-size: cover !important;
+  }
   // Use gray for private classes
   .private {
     .x-grid-cell-inner, .x-grid-cell-inner a {

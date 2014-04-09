@@ -6,9 +6,7 @@ module JsDuck::Tag
       @pattern = "singleton"
       @ext_define_pattern = "singleton"
       @class_icon = {
-        :small => File.dirname(__FILE__) + "/icons/singleton.png",
-        :large => File.dirname(__FILE__) + "/icons/singleton-large.png",
-        :redirect => File.dirname(__FILE__) + "/icons/singleton-redirect.png",
+        :icon => File.dirname(__FILE__) + "/icons/singleton.png",
         :priority => PRIORITY_SINGLETON,
       }
       @signature = {:long => "singleton", :short => "single"}

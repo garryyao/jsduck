@@ -12,7 +12,12 @@
 
   // move the icons up a bit
   .hover-menu-button {
-    background-position: 0 -1px; } }
+    background-position: 0 -1px; }
+
+  .x-toolbar-item{
+    background-size: contain !important;
+  }
+}
 
 
 // The reset (X) button in filter-class-members text box

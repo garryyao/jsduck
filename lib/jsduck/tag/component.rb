@@ -8,9 +8,7 @@ module JsDuck::Tag
     def initialize
       @pattern = "component"
       @class_icon = {
-        :small => File.dirname(__FILE__) + "/icons/component.png",
-        :large => File.dirname(__FILE__) + "/icons/component-large.png",
-        :redirect => File.dirname(__FILE__) + "/icons/component-redirect.png",
+        :icon => File.dirname(__FILE__) + "/icons/component.png",
         :priority => PRIORITY_COMPONENT,
       }
       super
