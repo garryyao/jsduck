@@ -57,16 +57,22 @@ module JsDuck
     # Returns hash of all members by ID (including inherited ones)
     def global_by_id
       unless @global_map_by_id
-        # Make copy of parent class members.
-        # Otherwise we'll be merging directly into parent class.
-        @global_map_by_id = @cls.parent ? @cls.parent.members_index.global_by_id.clone : {}
 
-        @cls.mixins.each do |mix|
-          merge!(@global_map_by_id, mix.members_index.global_by_id)
+        @global_map_by_id = {}
+
+        # Start with interfaces first.
+        @cls.self_implements.each do |int|
+          merge!(@global_map_by_id, int.members_index.global_by_id)
         end
 
-        @cls.implements.each do |int|
-          merge!(@global_map_by_id, int.members_index.global_by_id)
+        # Merge parent class members.
+        if @cls.parent
+          merge!(@global_map_by_id, @cls.parent.members_index.global_by_id)
+        end
+
+        # Merge mixin members then.
+        @cls.mixins.each do |mix|
+          merge!(@global_map_by_id, mix.members_index.global_by_id)
         end
 
         # Exclude all non-inheritable static members

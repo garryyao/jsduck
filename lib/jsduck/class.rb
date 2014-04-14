@@ -91,6 +91,11 @@ module JsDuck
       deps(:implements).concat(parent_deps(:implements))
     end
 
+    # Returns all interfaces that this class implements.
+    def self_implements
+      deps(:implements)
+    end
+
     # Returns an array of class instances this class directly depends on.
     # Possible types are:
     #
