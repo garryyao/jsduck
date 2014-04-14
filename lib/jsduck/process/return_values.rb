@@ -15,7 +15,7 @@ module JsDuck
       def process_all!
         @relations.each do |cls|
           @cls = cls
-          cls.find_members(:tagname => :method, :local => true, :static => false).each do |m|
+          cls.find_members(:tagname => :method, :local => true).each do |m|
             process(m)
           end
         end
@@ -26,10 +26,8 @@ module JsDuck
       def process(m)
         if constructor?(m)
           add_return_new(m)
-        elsif chainable?(m)
+        elsif returns_this?(m) || chainable?(m)
           add_return_this(m)
-        elsif returns_this?(m)
-          add_chainable(m)
         end
       end
 
@@ -42,7 +40,11 @@ module JsDuck
       end
 
       def returns_this?(m)
-        m[:return] && m[:return][:type] == @cls[:name] && m[:return][:doc] =~ /\Athis\b/
+        t = m[:return] && m[:return][:doc] =~ /\Athis\b/
+        if t
+          m[:return][:doc] = nil
+        end
+        t
       end
 
       def add_chainable(m)
@@ -50,9 +52,17 @@ module JsDuck
       end
 
       def add_return_this(m)
-        if m[:return] == nil
-          m[:return] = {:type => @cls[:name], :doc => "this"}
+        ret = m[:return] || (m[:return] = {})
+        ret[:type] = @cls[:name]
+        if ret[:name] == nil
+          ret[:name] = "this"
         end
+
+        if ret[:doc] == nil
+          ret[:doc] = "Instance of this class."
+        end
+
+        puts m[:name]
       end
 
       def add_return_new(m)
