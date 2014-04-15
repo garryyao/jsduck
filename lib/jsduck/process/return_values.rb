@@ -62,7 +62,6 @@ module JsDuck
           ret[:doc] = "Instance of this class."
         end
 
-        puts m[:name]
       end
 
       def add_return_new(m)
